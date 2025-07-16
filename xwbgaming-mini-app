@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XWB Gaming Mini App</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; }
+    #user { margin: 1.5rem; font-size: 1.2rem; }
+    #startBtn { padding: 0.8rem 1.5rem; font-size: 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>স্বাগতম to XWB Gaming!</h1>
+  <div id="user">Loading your info...</div>
+  <button id="startBtn">Start the Game</button>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const userDiv = document.getElementById('user');
+    const btn = document.getElementById('startBtn');
+
+    const user = tg.initDataUnsafe.user;
+    if (user) {
+      userDiv.innerText = `Hi, ${user.first_name}${user.last_name ? ' ' + user.last_name : ''}!`;
+    } else {
+      userDiv.innerText = "Hello, gamer!";
+    }
+
+    btn.addEventListener('click', () => {
+      tg.sendData("STARTED_GAME");
+      alert("Game Started! 🚀");
+    });
+  </script>
+</body>
+</html>
